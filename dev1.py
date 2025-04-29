@@ -73,7 +73,7 @@ def filtration():
             P[j + 1, i] = alpha[i + 1] * P[j + 1, i + 1] + beta[i + 1]
 
         for i in range(N - 1):
-            U[j + 1, i] = abs((-k0 * (P[j + 1, i + 1] - P[j + 1, i] + kp2 * (sp1 + P[j + 1, i + 1] - P[j, i + 1] - sp2 - P[j + 1, i] + P[j, i])) / (myu0 * h * (1 + kv1)) - (kv1 * st - kv1 * U[j, i]) / (1 + kv1))  # velocity
+            U[j + 1, i] = abs((-k0 * (P[j + 1, i + 1] - P[j + 1, i] + kp2 * (sp1 + P[j + 1, i + 1] - P[j, i + 1] - sp2 - P[j + 1, i] + P[j, i])) / (myu0 * h * (1 + kv1)) - (kv1 * st - kv1 * U[j, i]) / (1 + kv1)))
 
         U[j + 1, -1] = U[j + 1, -2]  # velocity
 

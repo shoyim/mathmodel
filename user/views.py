@@ -1,11 +1,13 @@
 import json
 import math
+import os
 from django.http import JsonResponse
 from django.shortcuts import render
 from scipy.special import gamma
 import numpy as np
 from django.utils.timezone import now, timedelta
 from .models import PageAccess
+from django.conf import settings
 from .forms import CalculationForm1, CalculationForm2, CalculationForm3
 
 def code(request):
@@ -24,6 +26,196 @@ def home(request):
 
 def calculate_results(form_data):
     return form_data
+def image_form(request,form_id):
+    if form_id == 1:
+        form = CalculationForm1
+    elif form_id == 2:
+        form = CalculationForm2
+    elif form_id == 3:
+        form = CalculationForm3
+    else:
+        form = None
+    image_data = {
+        1: [
+            {
+                'title': 'Рис. 1.',
+                'image': os.path.join(settings.STATIC_URL, 'images/image1_1.png'),
+                'description': 'Профили давления при различных β и t = 3600c, λ_v = 1000 c, λ_p = 500 c, α = 0.7'
+            },
+            {
+                'title': 'Рис. 2. ',
+                'image': os.path.join(settings.STATIC_URL, 'images/image1_2.png'),
+                'description': 'Профили давления при различных α и t = 3600c, λ_v = 1000 c, λ_p = 500 c, β = 0.7'
+            },
+            {
+                'title': 'Рис. 3.',
+                'image': os.path.join(settings.STATIC_URL, 'images/image1_3.png'),
+                'description': 'Профили измерения скорости фильтрации при различных β и t = 3600 c, λ_v = 1000 c, λ_p = 500 c, α = 0.7'
+            },
+            {
+                'title': 'Рис. 4.',
+                'image': os.path.join(settings.STATIC_URL, 'images/image1_4.png'),
+                'description': 'Профили давления при различных α и t = 3600 c, λ_v = 1000 c, λ_p = 500 c, β = 0.7'
+            },
+            
+
+            {
+                'title': 'Рис. 5.',
+                'image': os.path.join(settings.STATIC_URL, 'images/image1_5.png'),
+                'description': 'Профили давления при различных β и t = 3600c, λ_v = 1000 c, λ_p = 500 c, α = 0.7'
+            },
+            {
+                'title': 'Рис. 6.',
+                'image': os.path.join(settings.STATIC_URL, 'images/image1_6.png'),
+                'description': 'Профили давления при различных α и t = 3600c, λ_v = 1000 c, λ_p = 500 c, β = 0.7'
+            },
+            {
+                'title': 'Рис. 7.',
+                'image': os.path.join(settings.STATIC_URL, 'images/image1_7.png'),
+                'description': 'Профили измерения скорости фильтрации при различных β и t = 3600 c, λ_v = 1000 c, λ_p = 500 c, α = 0.7'
+            },
+            {
+                'title': 'Рис. 8.',
+                'image': os.path.join(settings.STATIC_URL, 'images/image1_8.png'),
+                'description': 'Профили давления при различных α и t = 3600 c, λ_v = 1000 c, λ_p = 500 c, β = 0.7'
+            },
+
+
+
+            {
+                'title': 'Рис. 9.',
+                'image': os.path.join(settings.STATIC_URL, 'images/image1_9.png'),
+                'description': 'Профили давления при различных β и t = 3600c, λ_v = 1000 c, λ_p = 500 c, α = 0.7'
+            },
+            {
+                'title': 'Рис. 10.',
+                'image': os.path.join(settings.STATIC_URL, 'images/image1_10.png'),
+                'description': 'Профили давления при различных α и t = 3600c, λ_v = 1000 c, λ_p = 500 c, β = 0.7'
+            },
+            {
+                'title': 'Рис. 11.',
+                'image': os.path.join(settings.STATIC_URL, 'images/image1_11.png'),
+                'description': 'Профили измерения скорости фильтрации при различных β и t = 3600 c, λ_v = 1000 c, λ_p = 500 c, α = 0.7'
+            },
+            {
+                'title': 'Рис. 12.',
+                'image': os.path.join(settings.STATIC_URL, 'images/image1_12.png'),
+                'description': 'Профили давления при различных α и t = 3600 c, λ_v = 1000 c, λ_p = 500 c, β = 0.7'
+            }
+        ],
+        2 : [
+                {
+                    'title': 'Рис. 1.',
+                    'image': os.path.join(settings.STATIC_URL, 'images/image2_1.png'),
+                    'description': 'Профили давления при различных β и t = 3600c, λ_v = 1000 c, λ_p = 500 c, α = 0.7'
+                },
+                {
+                    'title': 'Рис. 2. ',
+                    'image': os.path.join(settings.STATIC_URL, 'images/image2_2.png'),
+                    'description': 'Профили давления при различных α и t = 3600c, λ_v = 1000 c, λ_p = 500 c, β = 0.7'
+                },
+                {
+                    'title': 'Рис. 3.',
+                    'image': os.path.join(settings.STATIC_URL, 'images/image2_3.png'),
+                    'description': 'Профили измерения скорости фильтрации при различных β и t = 3600 c, λ_v = 1000 c, λ_p = 500 c, α = 0.7'
+                },
+                {
+                    'title': 'Рис. 4.',
+                    'image': os.path.join(settings.STATIC_URL, 'images/image2_4.png'),
+                    'description': 'Профили давления при различных α и t = 3600 c, λ_v = 1000 c, λ_p = 500 c, β = 0.7'
+                },
+                
+
+                {
+                    'title': 'Рис. 5.',
+                    'image': os.path.join(settings.STATIC_URL, 'images/image2_5.png'),
+                    'description': 'Профили давления при различных β и t = 3600c, λ_v = 1000 c, λ_p = 500 c, α = 0.7'
+                },
+                {
+                    'title': 'Рис. 6.',
+                    'image': os.path.join(settings.STATIC_URL, 'images/image2_6.png'),
+                    'description': 'Профили давления при различных α и t = 3600c, λ_v = 1000 c, λ_p = 500 c, β = 0.7'
+                },
+                {
+                    'title': 'Рис. 7.',
+                    'image': os.path.join(settings.STATIC_URL, 'images/image2_7.png'),
+                    'description': 'Профили измерения скорости фильтрации при различных β и t = 3600 c, λ_v = 1000 c, λ_p = 500 c, α = 0.7'
+                },
+                {
+                    'title': 'Рис. 8.',
+                    'image': os.path.join(settings.STATIC_URL, 'images/image2_8.png'),
+                    'description': 'Профили давления при различных α и t = 3600 c, λ_v = 1000 c, λ_p = 500 c, β = 0.7'
+                },
+        ],
+
+        3 : [
+                {
+                    'title': 'Рис. 1.',
+                    'image': os.path.join(settings.STATIC_URL, 'images/image3_1.png'),
+                    'description': 'Профили давления при различных β и t = 3600c, λ_v = 1000 c, λ_p = 500 c, α = 0.7'
+                },
+                {
+                    'title': 'Рис. 2. ',
+                    'image': os.path.join(settings.STATIC_URL, 'images/image3_2.png'),
+                    'description': 'Профили давления при различных α и t = 3600c, λ_v = 1000 c, λ_p = 500 c, β = 0.7'
+                },
+                {
+                    'title': 'Рис. 3.',
+                    'image': os.path.join(settings.STATIC_URL, 'images/image3_3.png'),
+                    'description': 'Профили измерения скорости фильтрации при различных β и t = 3600 c, λ_v = 1000 c, λ_p = 500 c, α = 0.7'
+                },
+                {
+                    'title': 'Рис. 4.',
+                    'image': os.path.join(settings.STATIC_URL, 'images/image3_4.png'),
+                    'description': 'Профили давления при различных α и t = 3600 c, λ_v = 1000 c, λ_p = 500 c, β = 0.7'
+                },
+                
+
+                {
+                    'title': 'Рис. 5.',
+                    'image': os.path.join(settings.STATIC_URL, 'images/image3_5.png'),
+                    'description': 'Профили давления при различных β и t = 3600c, λ_v = 1000 c, λ_p = 500 c, α = 0.7'
+                },
+                {
+                    'title': 'Рис. 6.',
+                    'image': os.path.join(settings.STATIC_URL, 'images/image3_6.png'),
+                    'description': 'Профили давления при различных α и t = 3600c, λ_v = 1000 c, λ_p = 500 c, β = 0.7'
+                },
+                {
+                    'title': 'Рис. 7.',
+                    'image': os.path.join(settings.STATIC_URL, 'images/image3_7.png'),
+                    'description': 'Профили измерения скорости фильтрации при различных β и t = 3600 c, λ_v = 1000 c, λ_p = 500 c, α = 0.7'
+                },
+                {
+                    'title': 'Рис. 8.',
+                    'image': os.path.join(settings.STATIC_URL, 'images/image3_8.png'),
+                    'description': 'Профили давления при различных α и t = 3600 c, λ_v = 1000 c, λ_p = 500 c, β = 0.7'
+                },
+
+
+                {
+                    'title': 'Рис. 9.',
+                    'image': os.path.join(settings.STATIC_URL, 'images/image3_9.png'),
+                    'description': 'Профили давления при различных β и t = 3600c, λ_v = 1000 c, λ_p = 500 c, α = 0.7'
+                },
+                {
+                    'title': 'Рис. 10.',
+                    'image': os.path.join(settings.STATIC_URL, 'images/image3_10.png'),
+                    'description': 'Профили давления при различных α и t = 3600c, λ_v = 1000 c, λ_p = 500 c, β = 0.7'
+                },
+                {
+                    'title': 'Рис. 11.',
+                    'image': os.path.join(settings.STATIC_URL, 'images/image3_11.png'),
+                    'description': 'Профили измерения скорости фильтрации при различных β и t = 3600 c, λ_v = 1000 c, λ_p = 500 c, α = 0.7'
+                },
+                {
+                    'title': 'Рис. 12.',
+                    'image': os.path.join(settings.STATIC_URL, 'images/image3_12.png'),
+                    'description': 'Профили давления при различных α и t = 3600 c, λ_v = 1000 c, λ_p = 500 c, β = 0.7'
+                }
+        ]
+    }
+    return render(request, "image_form.html", {'form_id': form_id,'form': form,'images': image_data[form_id]})
 def calculation_form(request, form_id):
     if form_id == 1:
         form = CalculationForm1
@@ -48,7 +240,6 @@ def thesis(request):
     return render(request,'thesis.html')
 def scopus(request):
     return render(request,'scopus.html')
-
 def function1(data):
     k0 = float(data.get('permeability', 1e-13))
     myu0 = float(data.get('fluid_viscosity', 1e-2))
@@ -116,7 +307,6 @@ def function1(data):
         "x": list(x_values),  # `.tolist()` yoki `list()` orqali aylantirish
         "y": list(y_values)
     }
-
 def function2(data):
     # Formadan kelgan parametrlarni o'qish
     k0 = float(data.get('permeability', 1e-14))
@@ -225,7 +415,6 @@ def function2(data):
         "y": y_values
     }
     return result
-
 def function3(data):
     k0 = float(data.get('permeability', 1e-13))
     myu0 = float(data.get('fluid_viscosity', 1e-2))
@@ -330,8 +519,6 @@ def calculate(request, id):
         else:
             result = 'No valid function for this ID'
         return JsonResponse({'data': result})
-
-
 def filtration_api(request):
     alf = float(request.GET.get('fractional_derivative_time1', 1))  
     betta = float(request.GET.get('fractional_derivative_time2', 1))  
@@ -354,7 +541,6 @@ def filtration_api(request):
         h=float(request.GET.get('grid_step_direction2', 0.05)),
     )
     return JsonResponse({'result': result})
-
 def filtration1(alf, tMax=3600, k0=1e-13, myu0=1e-2, P0=5e+5, bet_y=3e-10, lv=0, lp=500, betta=1, tau=10, h=0.05, L=40):
     k0 = k0
     myu0 = myu0

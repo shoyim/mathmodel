@@ -1,0 +1,81 @@
+{% extends 'layouts/app.html' %}
+
+{% block title %}Оптимизация расчетов{% endblock %}
+
+{% block content %}
+{% load static %}
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        {% for image in images %}
+            {% if forloop.first or forloop.counter0|divisibleby:4 %}
+                <!-- Har 4ta rasm uchun yangi box ochamiz -->
+                <div class="box shadow-sm mb-4">
+                    <div class="box-body">
+                        <div class="row">
+            {% endif %}
+            
+            <!-- Har bir rasm uchun 2 ta ustun, shuning uchun col-md-6 -->
+            <div class="col-md-6 col-sm-6">
+                <div class="image-container">
+                    <h2 class="text-center">{{ image.title }}</h2>
+                    <img src="{{ image.image }}" class="box-img-top image-fluid p-2" alt="{{ image.title }}" style="height: 400px;">
+                </div>
+            </div>
+            
+            {% if forloop.counter|divisibleby:4 or forloop.last %}
+                        </div> <!-- Row tugashi -->
+                    </div> <!-- Box body tugashi -->
+                </div> <!-- Box tugashi -->
+            {% endif %}
+        {% endfor %}
+    </div>
+</section>
+
+
+<!-- Modal для увеличенного просмотра -->
+<div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="modalTitle"></h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <img id="modalImage" src="" class="img-fluid" style="max-height: 80vh;" alt="">
+            </div>
+            <div class="modal-footer">
+                <p class="text-muted" id="modalDescription"></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+function showImageModal(imagePath, title, description) {
+    const modal = new bootstrap.Modal(document.getElementById('imageModal'));
+    document.getElementById('modalImage').src = imagePath;
+    document.getElementById('modalTitle').textContent = title;
+    document.getElementById('modalDescription').textContent = description || '';
+    modal.show();
+}
+</script>
+
+<style>
+.box {
+    transition: transform 0.3s ease;
+}
+.box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgb(255, 255, 255);
+}
+.box-img-top {
+    background-color: #f8f9fa;
+    object-fit: contain;
+}
+</style>
+{% endblock %}

@@ -6,14 +6,9 @@
 {% load static %}
 <!-- Content Header -->
 <section class="content-header">
-    <h1>
+    <h1 class="text-center text-bold">
         Программная среда расчета характеристик аномальной фильтрации жидкости в пористых средах
-        <small>Выбор типа задачи</small>
     </h1>
-    <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Дом.</a></li>
-        <li class="active">Панель инструментов.</li>
-    </ol>
 </section>
 
 <!-- Main content -->
@@ -21,7 +16,6 @@
     <div class="row">
         <div class="col-md-12">
             <div class="box box-body">
-                <h2 class="text-center">Алгоритмическая основа создания программной среды</h2>
                 <div style="display:flex;justify-content: center;">
                     <svg xmlns="http://www.w3.org/2000/svg" class="img-fluid img-responsive" style="max-width: 350px;"
                         viewBox="0 0 651.858 590.646" xmlns:xlink="http://www.w3.org/1999/xlink" role="img"
@@ -105,7 +99,6 @@
                         </g>
                     </svg>
                 </div>
-
             </div>
         </div>
     </div>
@@ -118,10 +111,11 @@
                 <div class="inner">
                     <p>Обобщенная релаксационная дробно-дифференциальная модель фильтрации</p>
                 </div>
-                <div class="icon">
-                    <i class="fa fa-filter"></i>
+                <div class="icon my-5">
+                    <img src="{% static 'images/5a6ef224-1c84-4888-9d21-266f04cd4b77_removalai_preview.png' %}" alt="Cogs Icon" style="width:50px; height:50px;"> 
                 </div>
-                <a href="#" class="btn btn-primary">Подробнее <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="/topic/image/1" class="btn btn-success">Oбычный Подробнее <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="#" class="btn btn-primary">Aнимация Подробнее <i class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div>
         <!-- Task 2 -->
@@ -132,9 +126,10 @@
                     <p>Дробно-дифференциальная модель упруговязкопластичной фильтрации</p>
                 </div>
                 <div class="icon">
-                    <i class="fa fa-flask"></i>
+                    <img src="{% static 'images/42050b1e-609a-4d87-879d-f5e3130629a9_removalai_preview.png' %}" alt="Cogs Icon" style="width:50px; height:50px;"> 
                 </div>
-                <a href="#" class="btn btn-primary">Подробнее <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="/topic/image/2" class="btn btn-success">Oбычный Подробнее <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="#" class="btn btn-primary">Aнимация Подробнее <i class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div>
         <!-- Task 3 -->
@@ -145,19 +140,17 @@
                     <p>Модель плоскорадиальной фильтрации с дробными производными</p>
                 </div>
                 <div class="icon">
-                    <i class="fa fa-cogs text-primary"></i>
+                    <img src="{% static 'images/2e46fafa-7f5f-4330-b60e-60641fb95168_removalai_preview.png' %}" alt="Cogs Icon" style="width:50px; height:50px;"> 
                 </div>
-                <a href="#" class="btn btn-primary">Подробнее <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="/topic/image/3" class="btn btn-success">Oбычный Подробнее <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="#" class="btn btn-primary">Aнимация Подробнее <i class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div>
     </div>
-
-
-
     <!-- Card to display PDF -->
     <div id="pdfCard" class="box" style="display: none; margin-top: 20px;">
         <div class="box-header with-border">
-            <h3 id="topicTitle" class="box-title"></h3>
+            <h2 id="topicTitle" class="text-center"></h2>
         </div>
         <div class="box-body">
             <div class="row">
@@ -165,7 +158,9 @@
                     <iframe id="pdfFrame" src="" width="100%" height="500px"></iframe>
                 </div>
                 <div class="col-md-6">
-                    <img id="topicImage" src="" alt="Topic Image" class="img-responsive img-fluid" style="width: 100%;">
+                    <div id="table-container">
+
+                    </div>
                 </div>
             </div>
         </div>
@@ -173,41 +168,257 @@
             <button onclick="hideCard()" class="btn btn-danger">Закрыть</button>
             <a id="start" class="btn btn-primary pull-right" href="#">НАЧАТЬ</a>
         </div>
-    </div>
 
-    <div class="row">
-        <div class="col-md-6">
-            <div class="box">
-                <div class="box-body">
-                    <canvas id="accessChart"></canvas>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="box">
+                    <div class="box-body">
+                        <canvas id="accessChart"></canvas>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
+    
 </section>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
 <!-- JavaScript -->
 <script>
     const staticUrl = "{% static 'pdfs/' %}";
     const imgStaticUrl = "{% static 'images/' %}";
+    // Har bir image uchun alohida dictionarylar
+    const dicts = {
+        1: {
+            "permeability": {
+                "name": "Проницаемость среды \\( k \\)",
+                "value": "10^{-13} \\, m^2"
+            },
+            "fluid_viscosity": {
+                "name": "Вязкость жидкости \\( \\mu \\)",
+                "value": "10^{-2} \\, \\text{Па} \\cdot \\text{с}"
+            },
+            "pressure": {
+                "name": "Давление \\( p_0 \\)",
+                "value": "5 \\cdot 10^5 \\, \\text{Па}"
+            },
+            "elastic_capacity_coefficient": {
+                "name": "Коэффициент упругоемкости пласта \\( \\beta^* \\)",
+                "value": "3 \\cdot 10^{-10} \\, \\text{Па}^{-1}"
+            },
+            "distance": {
+                "name": "Расстояние \\( L \\)",
+                "value": "40 \\, м"
+            },
+            "fractional_derivative_time1": {
+                "name": "Оператор дробной производной \\( \\beta \\)",
+                "value": "0{,}9 \\quad (0 < \\beta \\leq 1)"
+            },
+            "fractional_derivative_time2": {
+                "name": "Оператор дробной производной \\( \\alpha \\)",
+                "value": "0{,}7 \\quad (0 < \\alpha \\leq 1)"
+            },
+            "relaxation_time1": {
+                "name": "Время релаксации \\( \\lambda_v \\)",
+                "value": "1000 \\, с^{\\beta}"
+            },
+            "relaxation_time2": {
+                "name": "Скорости фильтрации \\( \\lambda_p \\)",
+                "value": "500 \\, с^{\\alpha}"
+            },
+            "grid_step_direction1": {
+                "name": "Шаг сетки по направлению \\( \\tau \\)",
+                "value": "10 \\, с"
+            },
+            "grid_step_direction2": {
+                "name": "Шаг сетки по направлению \\( h \\)",
+                "value": "0{,}05"
+            },
+            "maximum_time": {
+                "name": "Максимальное время \\( T_{\\max} \\)",
+                "value": "3600 \\, с"
+            }
+        },
+        2: {
+            "permeability": {
+                "name": "Проницаемость среды \\( k \\)",
+                "value": "10^{-14} \\, m^2"
+            },
+            "fluid_viscosity": {
+                "name": "Вязкость жидкости \\( \\mu \\)",
+                "value": "1{,}768 \\cdot 10^{-3} \\, \\text{Па} \\cdot \\text{с}"
+            },
+            "pressure": {
+                "name": "Давления \\( p_0 \\)",
+                "value": "5 \\cdot 10^5 \\, \\text{Па}"
+            },
+            "elastic_capacity_coefficient": {
+                "name": "Коэффициент упругоемкости пласта \\( \\beta^* \\)",
+                "value": "3 \\cdot 10^{-10} \\, \\text{Па}^{-1}"
+            },
+            "distance": {
+                "name": "Расстояние \\( L \\)",
+                "value": "5 \\, м"
+            },
+            "fractional_derivative_time1": {
+                "name": "Оператор дробной производной \\( \\beta \\)",
+                "value": "0{,}9 \\quad (0 < \\beta \\leq 1)"
+            },
+            "fractional_derivative_time2": {
+                "name": "Оператор дробной производной \\( \\alpha \\)",
+                "value": "0{,}7 \\quad (0 < \\alpha \\leq 1)"
+            },
+            "relaxation_time1": {
+                "name": "Время релаксации \\( \\lambda_v \\)",
+                "value": "1000 \\, с^{\\beta}"
+            },
+            "relaxation_time2": {
+                "name": "Скорости фильтрации \\( \\lambda_p \\)",
+                "value": "500 \\, с^{\\alpha}"
+            },
+            "grid_step_direction1": {
+                "name": "Шаг сетки по направлению \\( \\tau \\)",
+                "value": "10"
+            },
+            "grid_step_direction2": {
+                "name": "Шаг сетки по направлению \\( h \\)",
+                "value": "0{,}05"
+            },
+            "maximum_time": {
+                "name": "Максимальное время \\( T_{\\max} \\)",
+                "value": "3600 \\, с"
+            }
+        },
+        3: {
+            "permeability": {
+                "name": "Проницаемость среды \\( k \\)",
+                "value": "10^{-13} \\, m^2"
+            },
+            "fluid_viscosity": {
+                "name": "Вязкость жидкости \\( \\mu \\)",
+                "value": "10^{-2} \\, \\text{Па} \\cdot \\text{с}"
+            },
+            "initial_pressure": {
+                "name": "Первоначальное давление \\( p_t \\)",
+                "value": "200 \\cdot 10^5 \\, \\text{Па}"
+            },
+            "constant_pressure": {
+                "name": "Постоянное давление \\( p_c \\)",
+                "value": "150 \\cdot 10^5 \\, \\text{Па}"
+            },
+            "elastic_capacity_coefficient": {
+                "name": "Коэффициент упругоемкости пласта \\( \\beta^* \\)",
+                "value": "3 \\cdot 10^{-10} \\, \\text{Па}^{-1}"
+            },
+            "distance": {
+                "name": "Расстояние \\( L \\)",
+                "value": "40 \\, м"
+            },
+            "fractional_derivative_beta": {
+                "name": "Оператор дробной производной \\( \\beta \\)",
+                "value": "0{,}9 \\quad (0 < \\beta \\leq 1)"
+            },
+            "fractional_derivative_alpha": {
+                "name": "Оператор дробной производной \\( \\alpha \\)",
+                "value": "0{,}7 \\quad (0 < \\alpha \\leq 1)"
+            },
+            "relaxation_time_lambda_v": {
+                "name": "Время релаксации \\( \\lambda_v \\)",
+                "value": "1000 \\, с^{\\beta}"
+            },
+            "relaxation_time_lambda_p": {
+                "name": "Скорости фильтрации \\( \\lambda_p \\)",
+                "value": "500 \\, с^{\\alpha}"
+            },
+            "grid_step_tau": {
+                "name": "Шаг сетки по направлению \\( \\tau \\)",
+                "value": "10"
+            },
+            "grid_step_h": {
+                "name": "Шаг сетки по направлению \\( h \\)",
+                "value": "0{,}05"
+            },
+            "maximum_time": {
+                "name": "Максимальное время \\( T_{\\max} \\)",
+                "value": "3600 \\, с"
+            },
+            "radius_rc": {
+                "name": "\\( r_c \\)",
+                "value": "0{,}1 \\, м"
+            },
+            "radius_R": {
+                "name": "\\( R \\)",
+                "value": "40 \\, м"
+            }
+        }
+    }
 
+    function createTable(image_id, data) {
+        const container = document.getElementById('table-container');
+        if (!container) return;
+        
+        container.innerHTML = ''; // Oldingi jadvalni tozalash
+        
+        const table = document.createElement("table");
+        table.className = "table table-bordered table-hover";
+        
+        // Jadval sarlavhasi
+        const caption = document.createElement("caption");
+        caption.textContent = `В качестве исходных параметров принято - ${image_id}`;
+        table.appendChild(caption);
+        
+        const tableHead = document.createElement("thead");
+        tableHead.innerHTML = `
+        <tr>
+            <th style="width: 60%">Параметр</th>
+            <th style="width: 40%">Значение</th>
+        </tr>
+        `;
+        
+        const tableBody = document.createElement("tbody");
+        
+        // Ma'lumotlarni jadvalga joylash
+        Object.entries(data).forEach(([key, param]) => {
+        if (dicts[image_id][key]) {
+            let valueDisplay = param.value;
+            if (param.unit) valueDisplay += ` ${param.unit}`;
+            if (param.range) valueDisplay += ` (${param.range})`;
+            
+            const row = document.createElement("tr");
+            row.innerHTML = `
+            <td class="mathjax">${param[['name']]}</td>
+            <td class="mathjax">\\(${valueDisplay}\\)</td>
+            `;
+            tableBody.appendChild(row);
+        }
+        });
+        
+        table.appendChild(tableHead);
+        table.appendChild(tableBody);
+        container.appendChild(table);
+        
+        // MathJax ni yangilash
+        if (window.MathJax) {
+        MathJax.typesetPromise([container]).catch(err => {
+            console.error("MathJax xatosi:", err);
+        });
+        }
+    }
+  
     function showCard(pdf, topic, image_id) {
-
         document.querySelectorAll('.custom-box').forEach(box => box.classList.remove('active'));
-
-
         const clickedBox = event.currentTarget;
         clickedBox.classList.add('active');
-
-
         clickedBox.querySelector('a').classList.remove('btn-primary')
         clickedBox.querySelector('a').classList.add('btn-success')
 
         document.getElementById('pdfFrame').src = staticUrl + pdf;
         document.getElementById('pdfCard').style.display = 'block';
         document.getElementById('topicTitle').textContent = topic;
-        document.getElementById('topicImage').src = imgStaticUrl + "image" + image_id + ".png";
-
+        createTable(image_id,dicts[image_id]);
         document.getElementById('start').href = "/topic/forms/" + image_id;
     }
 
@@ -243,7 +454,6 @@
     });
 </script>
 
-<!-- Custom CSS -->
 <style>
     .custom-box {
         background-color: transparent !important;
@@ -265,12 +475,12 @@
     }
 
     .custom-box .inner p {
-        font-size: 14px;
+        font-size: 20px;
         font-weight: bold;
         color: #333;
     }
 
-    .custom-box .icon i {
+    .custom-box .icon img {
         font-size: 40px;
         color: #666;
     }
